@@ -58,7 +58,8 @@ def health_check():
         db_status = "failed"
         # Extract the detailed underlying driver error if present
         if hasattr(e, 'orig') and e.orig is not None:
-            db_error = f"{type(e).__name__}: {str(e)} (Detail: {str(e.orig)})"
+            orig_err = e.orig
+            db_error = f"{type(e).__name__}: {str(e)} (Driver Error: {type(orig_err).__name__} | Args: {getattr(orig_err, 'args', None)} | Msg: {getattr(orig_err, 'pgerror', None)})"
         else:
             db_error = f"{type(e).__name__}: {str(e)}"
         
