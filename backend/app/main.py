@@ -56,13 +56,23 @@ def health_check():
         db_status = "connected"
     except Exception as e:
         db_status = "failed"
-        db_error = str(e)
+        # Extract the detailed underlying driver error if present
+        if hasattr(e, 'orig') and e.orig is not None:
+            db_error = f"{type(e).__name__}: {str(e)} (Detail: {str(e.orig)})"
+        else:
+            db_error = f"{type(e).__name__}: {str(e)}"
         
     model_exists = os.path.exists(MODEL_PATH)
+    
+    # Check if the connection string contains placeholder indicators
+    has_placeholder = False
+    if DATABASE_URL:
+        has_placeholder = "[" in DATABASE_URL or "]" in DATABASE_URL or "YOUR-PASSWORD" in DATABASE_URL
     
     return {
         "status": "online",
         "database_url_configured": os.getenv("DATABASE_URL") is not None,
+        "database_url_has_placeholder": has_placeholder,
         "database_url_masked": DATABASE_URL.split("@")[-1] if "@" in DATABASE_URL else DATABASE_URL,
         "database_connection": db_status,
         "database_error": db_error,
