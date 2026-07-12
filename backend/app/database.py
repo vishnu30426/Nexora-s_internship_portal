@@ -3,13 +3,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Ensure the data directory exists
-os.makedirs("data", exist_ok=True)
+is_vercel = os.getenv("VERCEL") == "1"
+
+# Ensure the data directory exists locally (not needed on Vercel)
+if not is_vercel:
+    os.makedirs("data", exist_ok=True)
 
 # Database connection URL (reads environment variable, fallbacks to SQLite)
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
-    is_vercel = os.getenv("VERCEL") == "1"
     DATABASE_URL = "sqlite:////tmp/internship.db" if is_vercel else "sqlite:///./data/internship.db"
 
 # Fix for PostgreSQL connection strings that might use postgres:// instead of postgresql://
