@@ -32,20 +32,6 @@ export default function LoginPage() {
     }
   };
 
-  // Helper autofills for demonstration evaluation
-  const setDemoRole = (role) => {
-    if (role === 'admin') {
-      setEmail('admin@antigravity.com');
-      setPassword('admin123');
-    } else if (role === 'mentor') {
-      setEmail('mentor1@antigravity.com');
-      setPassword('mentor123');
-    } else if (role === 'student') {
-      setEmail('alex@antigravity.com');
-      setPassword('student123');
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center relative px-6 py-12">
       {/* Background radial glow */}
@@ -118,33 +104,6 @@ export default function LoginPage() {
               Register here
             </Link>
           </p>
-        </div>
-
-        {/* Demo Helper Panel */}
-        <div className="mt-8 border-t border-slate-800/80 pt-6">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-            <UserCheck size={14} /> Quick Demo Logins
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            <button
-              onClick={() => setDemoRole('student')}
-              className="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-[10px] font-bold rounded text-slate-300"
-            >
-              Student
-            </button>
-            <button
-              onClick={() => setDemoRole('mentor')}
-              className="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-[10px] font-bold rounded text-slate-300"
-            >
-              Mentor
-            </button>
-            <button
-              onClick={() => setDemoRole('admin')}
-              className="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-[10px] font-bold rounded text-slate-300"
-            >
-              Admin
-            </button>
-          </div>
         </div>
       </div>
     </div>
