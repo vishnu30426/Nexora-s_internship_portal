@@ -7,7 +7,10 @@ from sqlalchemy.orm import sessionmaker
 os.makedirs("data", exist_ok=True)
 
 # Database connection URL (reads environment variable, fallbacks to SQLite)
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./data/internship.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    is_vercel = os.getenv("VERCEL") == "1"
+    DATABASE_URL = "sqlite:////tmp/internship.db" if is_vercel else "sqlite:///./data/internship.db"
 
 # Fix for PostgreSQL connection strings that might use postgres:// instead of postgresql://
 if DATABASE_URL.startswith("postgres://"):

@@ -3,15 +3,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routers import auth, students, mentors, admin, analytics
 
-# Initialize database tables
-Base.metadata.create_all(bind=engine)
-
 # Initialize FastAPI App
 app = FastAPI(
     title="Nexora's Internship Portal API",
     description="Backend services, NLP report parsing, and ML student performance predictions.",
     version="1.0.0"
 )
+
+# Initialize database tables safely on startup
+@app.on_event("startup")
+def startup_db():
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print(f"Database table initialization failed: {e}")
 
 # CORS configurations for frontend communication
 origins = [
@@ -35,6 +40,39 @@ app.include_router(students.router, prefix="/api")
 app.include_router(mentors.router, prefix="/api")
 app.include_router(admin.router, prefix="/api")
 app.include_router(analytics.router, prefix="/api")
+
+@app.get("/api/health")
+def health_check():
+    import os
+    from sqlalchemy import text
+    from .database import engine, DATABASE_URL
+    from .ai.performance_predictor import MODEL_PATH
+    
+    db_status = "unknown"
+    db_error = None
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        db_status = "connected"
+    except Exception as e:
+        db_status = "failed"
+        db_error = str(e)
+        
+    model_exists = os.path.exists(MODEL_PATH)
+    
+    return {
+        "status": "online",
+        "database_url_configured": os.getenv("DATABASE_URL") is not None,
+        "database_url_masked": DATABASE_URL.split("@")[-1] if "@" in DATABASE_URL else DATABASE_URL,
+        "database_connection": db_status,
+        "database_error": db_error,
+        "model_file_exists": model_exists,
+        "model_path_resolved": MODEL_PATH,
+        "environment": {
+            "VERCEL": os.getenv("VERCEL"),
+            "ENV": os.getenv("ENV")
+        }
+    }
 
 @app.get("/")
 def read_root():
