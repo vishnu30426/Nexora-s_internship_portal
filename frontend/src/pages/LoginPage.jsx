@@ -39,8 +39,13 @@ export default function LoginPage() {
       
       <div className="glass-panel max-w-md w-full p-8 rounded-2xl relative z-10">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center mb-4">
-            <LogIn size={24} />
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl font-black font-heading tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+              NEXORA
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-widest bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              PORTAL
+            </span>
           </div>
           <h2 className="text-2xl font-bold font-heading text-white">Welcome Back</h2>
           <p className="text-slate-400 text-sm mt-1">Sign in to access your internship workspace</p>
