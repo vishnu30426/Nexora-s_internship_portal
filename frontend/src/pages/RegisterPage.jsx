@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { UserPlus, User, Mail, Key, Book, ShieldAlert, Award, Hash } from 'lucide-react';
+import logo from '../assets/logo.jpg';
 
 export default function RegisterPage() {
   const [role, setRole] = useState('student');
@@ -56,8 +57,14 @@ export default function RegisterPage() {
       
       <div className="glass-panel max-w-lg w-full p-8 rounded-2xl relative z-10">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center mb-4">
-            <UserPlus size={24} />
+          <div className="flex items-center gap-3 mb-4">
+            <img src={logo} alt="Nexora Logo" className="w-12 h-12 rounded-xl object-cover border border-slate-800" />
+            <span className="text-3xl font-black font-heading tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+              NEXORA
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-widest bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              PORTAL
+            </span>
           </div>
           <h2 className="text-2xl font-bold font-heading text-white">Create Account</h2>
           <p className="text-slate-400 text-sm mt-1">Enroll in the Nexora's Internship Portal</p>

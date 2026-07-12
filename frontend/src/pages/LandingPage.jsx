@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Sparkles, TrendingUp, BookOpen, Layers, Users } from 'lucide-react';
+import logo from '../assets/logo.jpg';
 
 export default function LandingPage() {
   return (
@@ -12,6 +13,7 @@ export default function LandingPage() {
       {/* Navigation Header */}
       <header className="relative z-10 max-w-7xl mx-auto w-full px-6 py-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
+          <img src={logo} alt="Nexora Logo" className="w-8 h-8 rounded-lg object-cover border border-slate-800" />
           <span className="text-2xl font-black font-heading tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
             NEXORA
           </span>

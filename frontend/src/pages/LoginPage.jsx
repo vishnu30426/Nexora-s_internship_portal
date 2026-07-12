@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogIn, Key, Mail, AlertTriangle, UserCheck } from 'lucide-react';
+import { LogIn, Key, Mail, AlertTriangle } from 'lucide-react';
+import logo from '../assets/logo.jpg';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -40,6 +41,7 @@ export default function LoginPage() {
       <div className="glass-panel max-w-md w-full p-8 rounded-2xl relative z-10">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-3 mb-4">
+            <img src={logo} alt="Nexora Logo" className="w-12 h-12 rounded-xl object-cover border border-slate-800" />
             <span className="text-3xl font-black font-heading tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
               NEXORA
             </span>
